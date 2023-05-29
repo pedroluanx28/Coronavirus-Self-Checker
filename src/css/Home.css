@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'roboto condensed';
+}
+
+.header {
+    width: 100%;
+    background-color: #014ba0;
+    padding: 50px;
+    color: white;
+    text-align: center;
+}
+
+.body {
+    padding: 10px 40px;
+    text-align: center;
+}
+
+.title {
+    letter-spacing: 3px;
+    font-weight: 900;
+    padding: 10px;
+    font-size: 2.5em;
+}
+
+
+#pagination {
+    width: 40px;
+    height: 30px;
+    margin: 10px 5px 0px 5px;
+    border: 1px solid rgb(29, 119, 255);
+    background-color: transparent;
+    border-radius: 5px;
+    font-weight: bolder;
+    color:rgb(29, 119, 255);
+    transition: 0.6s;
+    cursor: pointer;
+}#pagination:hover {
+    background-color: rgb(29, 119, 255);
+    color: white;
+}
+
+
+
+.paragrafo {
+    font-size: 0.9em;
+}
+
+.container {
+    margin: 40px 0;
+}
+
+.cadastrarPaciente {
+    font-size: 1.3em;
+    letter-spacing: 1.5px;
+    border: none;
+    background-color: #014ba0;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 13px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.400);
+}.cadastrarPaciente:hover {
+    background-color: #0057b9;
+}
+
+#tableTitle {
+  font-size: 1.5em;
+  width: 100%;
+  text-align: left;
+  margin: 50px 0px 0px 0px;
+}
+
+.footer {
+    width: 100%;
+    text-align: center;
+    background-color: #002142;
+    color: white;
+    font-weight: light;
+    font-size: 0.8em;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+
+.myName {
+    padding: 0;
+    margin: 10px;
+}
