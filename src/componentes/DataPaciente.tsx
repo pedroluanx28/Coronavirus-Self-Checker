@@ -1,6 +1,4 @@
 import '../css/Atendimento.css'
-import perfil from '../Imagens/defaultImage.jpg'
-import compreensivel from '../Imagens/compreensivel.jpg'
 import luan from '../Imagens/luan.jpg'
 
 type Props = {
