@@ -49,20 +49,23 @@
 }
 
 .formSintomas {
-    width: 500px;
-    margin: 20px auto 20px auto;
     background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: left;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.150);
+    text-align: center;
+    margin: 0 auto 0 auto;
 }
 
 .tituloFormSintomas {
     width: 100%;
-    margin: 0px 0px 15px 0px;
+    margin: 20px 0 20px 0;
     color: rgb(65, 65, 65);
 }
+
+.tituloFormSintomasChecks {
+    width: 100%;
+    margin: 20px 0 0 0;
+    color: rgb(65, 65, 65);
+}
+
 
 .ContainerTituloPaginaAtendimento {
     padding: 0;
@@ -74,6 +77,44 @@
 .tituloPaginaAtendimento {
     padding: 0;
     margin: 0;
+}
+
+.formulariosPacientesGroups {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: top;
+}
+
+.formSintomasCheck {
+    margin: 0 auto 0 auto;
+    background-color: white;
+    text-align: center;
+    color: rgb(65, 65, 65);
+}
+
+.checkboxInput {
+    margin: 5px;
+    font-size: 1em;
+    display: inline-block;
+}
+
+.atendimentoPaciente {
+    margin: 15px 0;
+    width: 100%;
+}
+
+.atendimentoPacienteParagrafo {
+    color: rgb(88, 88, 88);
+}
+
+.multiForm {
+    width: 700px;
+    text-align: right;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 7px;
+    margin: auto;
 }
 
 @media screen and (max-width: 600px) {

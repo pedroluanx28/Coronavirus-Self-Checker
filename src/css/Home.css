@@ -58,13 +58,15 @@
     font-size: 1.3em;
     letter-spacing: 1.5px;
     border: none;
-    background-color: #014ba0;
-    color: white;
+    background-color: transparent;
+    color: #014ba0;
     border-radius: 5px;
     padding: 10px 13px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.400);
+    box-shadow: 1px 1px 13px rgba(0, 0, 0, 0.300);
+    transition: 0.6s;
 }.cadastrarPaciente:hover {
-    background-color: #0057b9;
+    background-color: #014ba0;
+    color: #fff;
 }
 
 #tableTitle {
@@ -83,6 +85,10 @@
     font-size: 0.8em;
     padding: 30px;
     margin-top: 40px;
+}
+
+.mainHome {
+    height: 100vh;
 }
 
 

@@ -7,7 +7,6 @@ import Table from 'react-bootstrap/Table';
 import '../css/Global.css'
 import { TfiArrowRight } from "react-icons/tfi";
 import { Link } from 'react-router-dom'
-import Footer from '../componentes/Footer'
 
 
 
@@ -46,6 +45,7 @@ export default function Home () {
   return (
     
         <>
+          <main className='mainHome'>
           <div className='header'>
             <h1 className='title'>Coronavirus Self Checker</h1>
             <p className='paragrafo'>Sistema médico contra o Covid-19</p>
@@ -92,7 +92,7 @@ export default function Home () {
           })}
         </div>
       </div>
-      <Footer />
+          </main>
         </>
   )
 }

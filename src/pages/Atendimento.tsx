@@ -1,6 +1,8 @@
 import '../css/Atendimento.css'
 import DataPaciente from '../componentes/DataPaciente'
 import FormSintomas from '../componentes/FormSintomas'
+import FormSintomasChecks from '../componentes/FormSintomasChecks'
+import { Form } from 'react-bootstrap'
 
 
 export default function Atendimento() {
@@ -43,8 +45,13 @@ export default function Atendimento() {
         Cpf={pacientes[3].Cpf}
       />
       <div className='bodyPage'>
-        
+      <h1 className="atendimentoPaciente">Atendimento do paciente</h1>
+      <p className='atendimentoPacienteParagrafo'>Preencha os formulários a seguir e clique em "enviar" para dar o laudo do paciente.</p>
+        <Form className="multiForm">
           <FormSintomas />
+          <FormSintomasChecks />
+        <button type='submit' className="enviar">Enviar</button>
+        </Form>
       </div>
     </>
   )
