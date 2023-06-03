@@ -3,9 +3,25 @@ import DataPaciente from '../componentes/DataPaciente'
 import FormSintomas from '../componentes/FormSintomas'
 import FormSintomasChecks from '../componentes/FormSintomasChecks'
 import { Form } from 'react-bootstrap'
+import axios from 'axios'
+import image from '../../images/image.png'
 
 
 export default function Atendimento() {
+
+  const requestData = new FormData()
+  requestData.append('name', 'Pedro Luan')
+  requestData.append('identifier', '08422051362')
+  requestData.append('birthdate', '2006-04-28')
+  requestData.append('phone_number', '85999999999')
+
+  const imageFile = new File([''], image);
+  requestData.append('image', image);
+
+  axios
+    .post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
+    .then(res => console.log(res.data.data))
+    .catch(err => console.log(err.message))
 
   let pacientes = [
     {

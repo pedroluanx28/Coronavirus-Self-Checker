@@ -7,7 +7,7 @@ export default function Rotas() {
     <BrowserRouter>
         <Routes>
             <Route path='/' element={<Home />}/>
-            <Route path='/atendimento' element={<Atendimento />}/>
+            <Route path='/atendimento/:id' element={<Atendimento />}/>
         </Routes>
     </BrowserRouter>
   )

@@ -7,11 +7,12 @@ import Table from 'react-bootstrap/Table';
 import '../css/Global.css'
 import { TfiArrowRight } from "react-icons/tfi";
 import { Link } from 'react-router-dom'
+import image from '../Imagens/defaultImage.jpg'
 
 
 
 
-export default function Home () {
+export default function Home() {
   const [itens, setItens] = useState([])
   const itensPerPages = 5
   const [currentPages, setCurrentPages] = useState(0)
@@ -21,78 +22,67 @@ export default function Home () {
   const currentItens = itens.slice(startIndex, endIndex)
 
 
- useEffect(() => {
-  var config = {
-    method: 'get',
-  maxBodyLength: Infinity,
-    url: 'https://jsonplaceholder.typicode.com/users',
-    headers: { 
-      'Accept': 'application/json'
-    }
-  };
-  
-  axios(config)
-  .then(function (response) {
-    setItens(response.data);
-  })
-  .catch(function (error) {
-    console.log(error.message);
-  });
-  
- }, [])
-  
+  useEffect(() => {
+    axios
+      .get('http://covid-checker.sintegrada.com.br/api/patients')
+      .then(res => setItens(res.data.data))
+      .catch(err => console.log(err.message))
+
+  }, [])
+
+
 
   return (
-    
-        <>
-          <main className='mainHome'>
-          <div className='header'>
-            <h1 className='title'>Coronavirus Self Checker</h1>
-            <p className='paragrafo'>Sistema médico contra o Covid-19</p>
+
+    <>
+      <main className='mainHome'>
+        <div className='header'>
+          <h1 className='title'>Coronavirus Self Checker</h1>
+          <p className='paragrafo'>Sistema médico contra o Covid-19</p>
         </div>
         <div className="body">
-          
-        <CadPaciente />
-<h1 id='tableTitle'>Tabela de pacientes</h1>
-<Table bordered hover  size='sm' responsive='sm' className='tabelaResponsiva'>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-          <th>Username</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-      {currentItens.map(item => {
-          return (
-            <tr>
-          <td>{item['id']}</td>
-          <td>{item['name']}</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>@fat</td>
-          <td> <Link to={'/atendimento'}> <button style={{
-            textAlign: 'center',
-            width: '100%',
-            border: 'none',
-            backgroundColor: 'transparent',
-            height: '100%'
-          }}> <TfiArrowRight /> </button></Link> </td>
-        </tr>
-          )
-        })}
-      </tbody>
-    </Table>
-    <div className='paginationButtons'>
-          {Array.from(Array(pages), (itens, index ) => {
-            return <button id='pagination' value={index} onClick={(e) => setCurrentPages(Number(e.target.value))}>{index + 1}{itens}</button>
-          })}
+
+          <CadPaciente />
+          <h1 id='tableTitle'>Tabela de pacientes</h1>
+          <Table bordered hover size='sm' responsive='sm' className='tabelaResponsiva'>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Username</th>
+                <th>Username</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentItens.map((item) => {
+                return (
+                  <tr>
+                    <td>{item['id']}</td>
+                    <td>{item['name']}</td>
+                    <td>{item['phone_number']}</td>
+                    <td>{item['identifier']}</td>
+                    <td>{item['birthdate']}</td>
+                    <td> <Link to={`/atendimento/${item['id']}`}> <button style={{
+                      textAlign: 'center',
+                      width: '100%',
+                      border: 'none',
+                      backgroundColor: 'transparent',
+                      height: '100%'
+                    }}> <TfiArrowRight /> </button></Link> </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </Table>
+          <div className='paginationButtons'>
+            {Array.from(Array(pages), (itens, index) => {
+              return <button id='pagination' value={index} onClick={(e) => setCurrentPages(Number(e.target.value))}>{index + 1}{itens}</button>
+            })}
+          </div>
         </div>
-      </div>
-          </main>
-        </>
+      </main>
+    </>
   )
 }

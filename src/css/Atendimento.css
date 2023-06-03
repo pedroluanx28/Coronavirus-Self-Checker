@@ -6,22 +6,30 @@
 .bodyPage {
     width: 100%;
     text-align: center;
-    padding: 10px 40px;
+    padding: 10px 20px;
 }
 
 .dataPacienteHeader {
     width: 100%;
     text-align: center;
     align-items: center;
+    display: flex;
+    justify-content: space-between;
     flex-direction: row;
     background-color: #014ba0;
     color: white;
     padding: 20px 40px 40px 40px;
 }
 
+.infoPrimaria {
+    display: flex;
+    align-items: center;
+}
+
 
 .nomeDoPaciente {
-    margin: 5px 0px 10px 0;
+    margin-left: 10px;
+    margin-bottom: 0px;
     padding: 0;
 }
 
@@ -62,7 +70,7 @@
 
 .tituloFormSintomasChecks {
     width: 100%;
-    margin: 20px 0 0 0;
+    margin: 20px 0 13px 0;
     color: rgb(65, 65, 65);
 }
 
@@ -121,5 +129,28 @@
     .formSintomas {
         width: 100%;
         margin: 20px auto 20px auto;
+    }
+}
+
+@media screen and (max-width: 790px) {
+    .dataPacienteHeader {
+        display: inline-block;
+    }
+
+    .fotoDoPaciente {
+        margin: 0;
+    }
+
+    .multiForm {
+        width: 100%;
+        margin: auto;
+    }
+
+    .infoPrimaria {
+        display: inline-block;
+    }
+
+    .nomeDoPaciente {
+        margin: 5px 0 0 0;
     }
 }
