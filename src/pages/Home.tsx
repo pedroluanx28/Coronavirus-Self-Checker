@@ -7,7 +7,6 @@ import Table from 'react-bootstrap/Table';
 import '../css/Global.css'
 import { TfiArrowRight } from "react-icons/tfi";
 import { Link } from 'react-router-dom'
-import image from '../Imagens/defaultImage.jpg'
 
 
 
@@ -48,11 +47,11 @@ export default function Home() {
             <thead>
               <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-                <th>Username</th>
-                <th>Username</th>
+                <th>Nome</th>
+                <th>Condição</th>
+                <th>CPF</th>
+                <th>Idade</th>
+                <th style={{textAlign: 'center'}}>Atendimento</th>
               </tr>
             </thead>
             <tbody>

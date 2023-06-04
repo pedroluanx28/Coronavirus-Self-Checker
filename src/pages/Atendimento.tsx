@@ -1,74 +1,70 @@
 import '../css/Atendimento.css'
-import DataPaciente from '../componentes/DataPaciente'
-import FormSintomas from '../componentes/FormSintomas'
+import { Button, Form } from 'react-bootstrap'
 import FormSintomasChecks from '../componentes/FormSintomasChecks'
-import { Form } from 'react-bootstrap'
-import axios from 'axios'
-import image from '../../images/image.png'
-
+import DataPaciente from '../componentes/DataPaciente'
+import { Container, Row, Col } from 'react-bootstrap';
 
 export default function Atendimento() {
-
-  const requestData = new FormData()
-  requestData.append('name', 'Pedro Luan')
-  requestData.append('identifier', '08422051362')
-  requestData.append('birthdate', '2006-04-28')
-  requestData.append('phone_number', '85999999999')
-
-  const imageFile = new File([''], image);
-  requestData.append('image', image);
-
-  axios
-    .post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
-    .then(res => console.log(res.data.data))
-    .catch(err => console.log(err.message))
-
-  let pacientes = [
-    {
-      Name: 'Pedro Luan Maciel de Sousa',
-      Bday: '28-04-2006',
-      Cpf: '085.220.513-62',
-      Condicao: 'Não atendido'
-    },
-    {
-      Name: 'Ana Carolina Pereira do Nascimento',
-      Bday: '17-02-2006',
-      Cpf: '085.220.513-62',
-      Condicao: 'Pouco doente'
-    },
-    {
-      Name: 'Nicolas Lourenço da Silva',
-      Bday: '25-05-2006',
-      Cpf: '085.220.513-62',
-      Condicao: 'Pouco doente'
-    },
-    {
-      Name: 'Jhonnata Freire',
-      Bday: '17-02-2006',
-      Cpf: '085.220.513-62',
-      Condicao: 'Muito doente'
-    }
-
-  ]
-
 
   return (
     <>
       <DataPaciente
-        Name={pacientes[3].Name}
-        Bday={pacientes[3].Bday}
-        Condicao={pacientes[3].Condicao}
-        Cpf={pacientes[3].Cpf}
       />
       <div className='bodyPage'>
-      <h1 className="atendimentoPaciente">Atendimento do paciente</h1>
-      <p className='atendimentoPacienteParagrafo'>Preencha os formulários a seguir e clique em "enviar" para dar o laudo do paciente.</p>
+        <h1 className="atendimentoPaciente">Atendimento do paciente</h1>
+        <p className='atendimentoPacienteParagrafo'>Preencha os formulários a seguir e clique em "enviar" para dar o laudo do paciente.</p>
         <Form className="multiForm">
-          <FormSintomas />
-          <FormSintomasChecks />
-        <button type='submit' className="enviar">Enviar</button>
+          <div className="formSintomas">
+            <h3 className='tituloFormSintomas'>
+              Dados de saúde
+            </h3>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Control type="text" placeholder="Pressão Arterial Sistólica" />
+                </Form.Group>
+              </Col>
+
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Control type="text" placeholder="Pressão Arterial Diastólica" />
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Control type="text" placeholder="Frequência Cardíaca" />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Control type="text" placeholder="Frequência Respiratória" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Control type="text" placeholder="Temperatura" />
+            </Form.Group>
+          </div>
+          <Container className="formSintomasCheck">
+            <Row>
+              <h3 className="tituloFormSintomasChecks">Sintomas</h3>
+              <Col xs='3' sm='3' md='3' lg='3' style={{ textAlign: 'left' }}>
+
+                <p style={{ display: 'inline-block' }}>
+                  <Form.Check
+                    className='checkboxInput'
+                    type='checkbox'
+                  />
+                  Diarrreia
+                </p>
+              </Col>
+            </Row>
+          </Container>
+          <button type='submit' className="enviar">Enviar</button>
         </Form>
+        <div className="deletePaciente">
+          <Button variant="danger">Deletar Paciente</Button>{' '}
+        </div>
       </div>
     </>
   )
+
 }
