@@ -19,6 +19,7 @@ export default function Home() {
   const startIndex = currentPages * itensPerPages
   const endIndex = startIndex + itensPerPages
   const currentItens = itens.slice(startIndex, endIndex)
+  const [lastConsulte, setLastConsulte] = useState([])
 
 
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function Home() {
       .get('http://covid-checker.sintegrada.com.br/api/patients')
       .then(res => setItens(res.data.data))
       .catch(err => console.log(err.message))
+
 
   }, [])
 
@@ -48,10 +50,10 @@ export default function Home() {
               <tr>
                 <th>#</th>
                 <th>Nome</th>
-                <th>Condição</th>
+                <th>Telefone</th>
                 <th>CPF</th>
                 <th>Idade</th>
-                <th style={{textAlign: 'center'}}>Atendimento</th>
+                <th style={{ textAlign: 'center' }}>Atendimento</th>
               </tr>
             </thead>
             <tbody>

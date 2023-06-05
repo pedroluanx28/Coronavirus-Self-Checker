@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import axios from 'axios'
 import { FormEvent } from 'react';
-import InputMask from 'react-input-mask'
 
 export default function CadPaciente() {
   const [show, setShow] = useState(false);
@@ -26,14 +25,6 @@ export default function CadPaciente() {
     .post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
     .then(res => console.log(res.data.data))
     .catch(err => console.log(err.message))
-  }
-
-  function refresh() {
-    if (name == '' || identifier == '' || birthdate == '' || phoneNumber == '') {
-
-    }else {
-      location.reload()
-    }
   }
 
   return (
@@ -66,11 +57,11 @@ export default function CadPaciente() {
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupCpf">
               <Form.Label>CPF</Form.Label>
-              <InputMask className="inputMask" mask='999.999.999-99' onChange={e => setIdentifier(e.target.value)} type="text" placeholder="CPF" required />
+              <Form.Control className="inputMask" onChange={e => setIdentifier(e.target.value)} type="text" placeholder="CPF" required />
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupTelefone">
               <Form.Label>Telefone</Form.Label>
-              <InputMask className="inputMask" mask="(99)9 9999-9999" onChange={e => setPhoneNumber(e.target.value)} type="text" placeholder="Telefone" required />
+              <Form.Control className="inputMask" onChange={e => setPhoneNumber(e.target.value)} type="text" placeholder="Telefone" required />
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupImage">
               <Form.Label>Foto do paciente</Form.Label>

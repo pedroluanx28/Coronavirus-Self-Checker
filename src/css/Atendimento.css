@@ -123,11 +123,33 @@
     padding: 20px;
     border-radius: 7px;
     margin: auto;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.300);
 }
 
 .deletePaciente {
     width: 100%;
     margin-top: 40px;
+    text-align: center;
+}
+
+.lastConsulte {
+    width: 700px;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 7px;
+    margin: 30px auto 0 auto;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.300);
+}
+
+.lastSymptoms {
+    padding: 0;
+    margin: 0;
+    border: 1px solid grey;
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
     text-align: center;
 }
 
@@ -150,6 +172,11 @@
     .multiForm {
         width: 100%;
         margin: auto;
+    }
+
+    .lastConsulte {
+        width: 100%;
+        margin: 30px auto 0 auto;
     }
 
     .infoPrimaria {
