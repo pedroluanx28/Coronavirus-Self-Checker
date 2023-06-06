@@ -54,7 +54,7 @@ export default function DataPaciente() {
   return (
     <div className="dataPacienteHeader">
       <div className="infoPrimaria">
-        <img className='fotoDoPaciente' src={`http://covid-checker.sintegrada.com.br/${paciente.image}`} alt="Foto do paciente" />
+        <img className='fotoDoPaciente' src={`http://covid-checker.sintegrada.com.br/storage/${paciente.image}`} alt="Foto do paciente" />
         <h5 className='nomeDoPaciente'>{paciente.name}</h5>
       </div>
 

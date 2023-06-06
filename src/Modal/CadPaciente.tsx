@@ -22,9 +22,10 @@ export default function CadPaciente() {
     event.preventDefault()
 
     axios
-    .post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
-    .then(res => console.log(res.data.data))
-    .catch(err => console.log(err.message))
+      .post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
+      .then(res => console.log(res.data.data))
+      .catch(err => console.log(err.message))
+
   }
 
   return (
@@ -49,7 +50,7 @@ export default function CadPaciente() {
           <Form onSubmit={postData}>
             <Form.Group className="mb-2" controlId="formGroupName">
               <Form.Label>Nome completo</Form.Label>
-              <Form.Control onChange={e => setName(e.target.value)} type="text" placeholder="Nome completo" required/>
+              <Form.Control onChange={e => setName(e.target.value)} type="text" placeholder="Nome completo" required />
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupBirthdate">
               <Form.Label>Data de nascimento</Form.Label>

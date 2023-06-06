@@ -31,7 +31,7 @@
 #pagination {
     width: 40px;
     height: 30px;
-    margin: 10px 5px 0px 5px;
+    margin: 3px 5px 0px 5px;
     border: 1px solid rgb(29, 119, 255);
     background-color: transparent;
     border-radius: 5px;
@@ -44,6 +44,11 @@
 #pagination:hover {
     background-color: rgb(29, 119, 255);
     color: white;
+    border: none;
+}
+
+.paginationButtons {
+    margin-top: 20px;
 }
 
 
@@ -101,24 +106,13 @@
     margin: 10px;
 }
 
-.inputMask {
-    display: block;
-    width: 100%;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: .375rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    transition-property: border-color, box-shadow;
-    transition-duration: 0.15s, 0.15s;
-    transition-timing-function: ease-in-out, ease-in-out;
-    transition-delay: 0s, 0s;
+.botaoHomeTable {
+    border-radius: 5px;
+    width: 50%;
+    border: none;
+    background-color: rgb(29, 119, 255);
+    padding: 10px;
+    color: white;
+}.botaoHomeTable:hover {
+    background-color: rgb(0, 97, 241);
 }
