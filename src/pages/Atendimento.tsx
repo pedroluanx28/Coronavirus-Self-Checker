@@ -34,10 +34,10 @@ export default function Atendimento() {
       })
       .then(res => setItens(res.data.data.symptoms))
       .catch(err => console.log(err.message))
-    console.log(symptoms)
-  }
 
-  useEffect(() => {
+      getAttendances()
+  }
+  function getAttendances() {
     axios
       .get(`http://covid-checker.sintegrada.com.br/api/attendance/200`)
       .then(res => setItens(res.data.data.symptoms))
@@ -47,6 +47,10 @@ export default function Atendimento() {
       .get(`http://covid-checker.sintegrada.com.br/api/patients/${id}/attendances`)
       .then(res => setLastConsulte(res.data.data))
       .catch(err => console.log(err.message))
+  }
+
+  useEffect(() => {
+    getAttendances()
   }, [])
 
   return (

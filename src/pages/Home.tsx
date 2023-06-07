@@ -14,30 +14,51 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import dayjs from 'dayjs'
+import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from 'react-icons/md'
 
+interface Item {
+  name: string;
+  phone_number: string;
+  identifier: string;
+  birthdate: string;
+  id: number;
+}
 
 
 
 export default function Home() {
-  const [itens, setItens] = useState([])
+  const [itens, setItens] = useState<any>([])
   const [pagination, setPagination] = useState<any>([])
-  const perPage = pagination['per_page']
-  const totalPages = pagination['last_page']
+  const [links, setLinks] = useState<any>([])
+  let url = 'http://covid-checker.sintegrada.com.br/api/patients?page=1'
+  let currentPage = pagination['current_page']
+  const lastPage = pagination['last_page']
 
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(url);
+      setPagination(response.data.meta);
+      setLinks(response.data.links)
+      setItens(response.data.data)
+    } catch (error) {
+      console.log('Ocorreu um erro ao buscar os dados da API:', error);
+    }
+  };
 
   useEffect(() => {
-    axios
-      .get('http://covid-checker.sintegrada.com.br/api/patients')
-      .then(res => setItens(res.data.data))
-      .catch(err => console.log(err.message))
-
-    axios
-      .get('http://covid-checker.sintegrada.com.br/api/patients')
-      .then(res => setPagination(res.data.meta))
-      .catch(err => console.log(err.message))
-
-
+    fetchData()
   }, [])
+
+  function nextPage() {
+    url = links.next
+    fetchData()
+  }
+
+  function prevPage() {
+    url = links.prev
+    fetchData()
+  }
 
 
 
@@ -50,10 +71,14 @@ export default function Home() {
           <p className='paragrafo'>Sistema médico contra o Covid-19</p>
         </div>
         <div className="body">
-
-          <CadPaciente />
+          <CadPaciente getPatients={fetchData} />
           <h1 id='tableTitle'>Tabela de pacientes</h1>
-          <TableContainer component={Paper}>
+          <div className='paginationButtons'>
+            <button className='buttonPagination' onClick={prevPage}><MdOutlineNavigateBefore /> Anterior</button>
+            <h5 style={{ display: 'inline-block' }}>{currentPage + '/' + lastPage}</h5>
+            <button className='buttonPagination' onClick={nextPage}>Próxima <MdOutlineNavigateNext /></button>
+          </div>
+          <TableContainer id='tablePatients' component={Paper} >
             <Table style={{ minWidth: '650' }} aria-label="simple table" className='tabelaResponsiva'>
               <TableHead>
                 <TableRow style={{ fontWeight: 'bolder' }}>
@@ -65,7 +90,7 @@ export default function Home() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {itens.map((item) => {
+                {itens.map((item: Item) => {
                   return (
                     <TableRow>
                       <TableCell component="th" scope="row">{item['name']}</TableCell>
@@ -83,9 +108,6 @@ export default function Home() {
               </TableBody>
             </Table>
           </TableContainer>
-          <div className='paginationButtons'>
-
-          </div>
         </div>
       </main>
     </>

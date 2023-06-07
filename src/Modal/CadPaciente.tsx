@@ -3,7 +3,14 @@ import { Modal, Form } from 'react-bootstrap';
 import axios from 'axios'
 import { FormEvent } from 'react';
 
-export default function CadPaciente() {
+
+
+type Props = {
+  getPatients: Function
+}
+
+export default function CadPaciente({ getPatients }: Props) {
+
   const [show, setShow] = useState(false);
   const [name, setName] = useState('');
   const [identifier, setIdentifier] = useState('');
@@ -26,7 +33,10 @@ export default function CadPaciente() {
       .then(res => console.log(res.data.data))
       .catch(err => console.log(err.message))
 
+    getPatients()
+    setShow(false)
   }
+    
 
   return (
     <>

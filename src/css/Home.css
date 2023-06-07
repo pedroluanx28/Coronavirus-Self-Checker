@@ -16,7 +16,7 @@
 }
 
 .body {
-    padding: 10px 40px;
+    padding: 10px 20px;
     text-align: center;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .paginationButtons {
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 
@@ -66,7 +66,7 @@
     letter-spacing: 1.5px;
     border: none;
     background-color: transparent;
-    color: #014ba0;
+    color: rgb(0, 97, 241);
     border-radius: 5px;
     padding: 10px 13px;
     box-shadow: 1px 1px 13px rgba(0, 0, 0, 0.300);
@@ -74,14 +74,14 @@
 }
 
 .cadastrarPaciente:hover {
-    background-color: #014ba0;
+    background-color: rgb(0, 97, 241);
     color: #fff;
 }
 
 #tableTitle {
     font-size: 1.5em;
     width: 100%;
-    text-align: left;
+    text-align: center;
     margin: 50px 0px 0px 0px;
 }
 
@@ -115,4 +115,31 @@
     color: white;
 }.botaoHomeTable:hover {
     background-color: rgb(0, 97, 241);
+}
+
+.buttonPagination {
+    padding: 7px 15px;
+    margin: 0 15px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    background-color: rgb(0, 97, 241);
+    border-radius: 5px;
+    box-shadow: 3px 3px 13px rgba(0, 0, 0, 0.500);
+}.buttonPagination:hover {
+    background-color: rgb(4, 90, 219);
+}
+
+#tablePatients {
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.300);
+    width: 1000px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 1060px) {
+    #tablePatients {
+        width: 100%;
+        margin: auto;
+    }
 }
