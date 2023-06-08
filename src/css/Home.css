@@ -94,6 +94,8 @@
     font-size: 0.8em;
     padding: 30px;
     margin-top: 40px;
+    position: relative;
+    bottom: 0;
 }
 
 .mainHome {

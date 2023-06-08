@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import axios from 'axios'
 import { FormEvent } from 'react';
-
+import Swal from 'sweetalert2'
 
 
 type Props = {
@@ -28,15 +28,28 @@ export default function CadPaciente({ getPatients }: Props) {
   function postData(event: FormEvent) {
     event.preventDefault()
 
-    axios
-      .post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
-      .then(res => console.log(res.data.data))
-      .catch(err => console.log(err.message))
+    if (name == '' || identifier == '' || birthdate == '' || phoneNumber == '' || image == undefined) {
+      let p: any = document.getElementById('paragrafoFoda')
+      p.innerHTML = 'Falha ao cadastrar! verifique os campos.'
+    } else {
+      axios
+        .post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
+        .then(res => console.log(res.data.data))
+        .catch(err => console.log(err.message))
 
-    getPatients()
-    setShow(false)
+      getPatients()
+      setShow(false)
+      Swal.fire({
+        icon: 'success',
+        title: 'Paciente Adicionado com sucesso!',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true
+      })
+    }
   }
-    
+
 
   return (
     <>
@@ -60,25 +73,26 @@ export default function CadPaciente({ getPatients }: Props) {
           <Form onSubmit={postData}>
             <Form.Group className="mb-2" controlId="formGroupName">
               <Form.Label>Nome completo</Form.Label>
-              <Form.Control onChange={e => setName(e.target.value)} type="text" placeholder="Nome completo" required />
+              <Form.Control onChange={e => setName(e.target.value)} type="text" placeholder="Nome completo" />
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupBirthdate">
               <Form.Label>Data de nascimento</Form.Label>
-              <Form.Control onChange={e => setBirthdate(e.target.value)} type="date" required />
+              <Form.Control onChange={e => setBirthdate(e.target.value)} type="date" />
             </Form.Group>
-            <Form.Group className="mb-2" controlId="formGroupCpf">
+            <Form.Group className="mb-2" controlId="formGroupBirthdate">
               <Form.Label>CPF</Form.Label>
-              <Form.Control className="inputMask" onChange={e => setIdentifier(e.target.value)} type="text" placeholder="CPF" required />
+              <Form.Control placeholder="CPF" onChange={e => setIdentifier(e.target.value)} type="text" />
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupTelefone">
               <Form.Label>Telefone</Form.Label>
-              <Form.Control className="inputMask" onChange={e => setPhoneNumber(e.target.value)} type="text" placeholder="Telefone" required />
+              <Form.Control className="inputMask" onChange={e => setPhoneNumber(e.target.value)} type="text" placeholder="Telefone" />
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupImage">
               <Form.Label>Foto do paciente</Form.Label>
               <Form.Control onChange={e => setImage(e.target?.files[0])} type="file" />
             </Form.Group>
             <div className='buttons'>
+              <p style={{color: 'red', textAlign: 'left'}} id="paragrafoFoda"></p>
               <button type='submit' className='enviar'>Enviar</button>
             </div>
           </Form>

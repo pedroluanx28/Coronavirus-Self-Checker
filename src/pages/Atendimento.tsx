@@ -4,6 +4,7 @@ import DataPaciente from '../componentes/DataPaciente'
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
+import Footer from '../componentes/Footer';
 import { useEffect, useState } from 'react';
 import { FormEvent } from 'react'
 
@@ -35,9 +36,10 @@ export default function Atendimento() {
       .then(res => setItens(res.data.data.symptoms))
       .catch(err => console.log(err.message))
 
-      getAttendances()
+    getAttendances()
   }
   function getAttendances() {
+
     axios
       .get(`http://covid-checker.sintegrada.com.br/api/attendance/200`)
       .then(res => setItens(res.data.data.symptoms))
@@ -142,9 +144,37 @@ export default function Atendimento() {
                   )
                 })}
             </Row>
+            <h3 className='tituloFormSintomas'> Diagnósticos da última consulta </h3>
+            <Row>
+              <Col>
+                <p className="lastDiagnostics">
+                  <h5>Pressão Diastólica</h5>
+                  {!lastConsulte[lastConsulte.length - 1]
+                    ? ("Carregando dados...")
+                    : (
+                      <p className='lastSymptoms'>
+                        {lastConsulte[lastConsulte.length - 1]['diastolic_pressure'] + '° | Afebril'}
+                      </p>
+                    )}
+                </p>
+              </Col>
+              <Col lg="6" sm="12">
+                <p className="lastDiagnostics">
+                  <h5>Pressão Sistólica</h5>
+                  {!lastConsulte[lastConsulte.length - 1]
+                    ? ("Carregando dados...")
+                    : (
+                      <p className='lastSymptoms'>
+                        {lastConsulte[lastConsulte.length - 1]['temperature'] + '° | Afebril'}
+                      </p>
+                    )}
+                </p>
+              </Col>
+            </Row>
           </Container>
         </div>
       </div>
+      <Footer />
     </>
   )
 

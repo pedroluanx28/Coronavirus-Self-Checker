@@ -1,5 +1,6 @@
 import '../css/Home.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Footer from '../componentes/Footer'
 import { useEffect, useState } from 'react'
 import CadPaciente from '../Modal/CadPaciente'
 import axios from 'axios'
@@ -75,7 +76,7 @@ export default function Home() {
           <h1 id='tableTitle'>Tabela de pacientes</h1>
           <div className='paginationButtons'>
             <button className='buttonPagination' onClick={prevPage}><MdOutlineNavigateBefore /> Anterior</button>
-            <h5 style={{ display: 'inline-block' }}>{currentPage + '/' + lastPage}</h5>
+            <h5 style={{ display: 'inline-block' }}>{currentPage == undefined ? "1/1" : currentPage + '/' + lastPage}</h5>
             <button className='buttonPagination' onClick={nextPage}>Próxima <MdOutlineNavigateNext /></button>
           </div>
           <TableContainer id='tablePatients' component={Paper} >
@@ -109,6 +110,7 @@ export default function Home() {
             </Table>
           </TableContainer>
         </div>
+        <Footer />
       </main>
     </>
   )
