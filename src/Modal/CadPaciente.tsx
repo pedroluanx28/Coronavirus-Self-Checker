@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import axios from 'axios'
 import { FormEvent } from 'react';
 import Swal from 'sweetalert2'
+import { ValidateCpf } from '../componentes/ValidateCpf';
 
 
 type Props = {
@@ -28,25 +29,36 @@ export default function CadPaciente({ getPatients }: Props) {
   function postData(event: FormEvent) {
     event.preventDefault()
 
-    if (name == '' || identifier == '' || birthdate == '' || phoneNumber == '' || image == undefined) {
-      let p: any = document.getElementById('paragrafoFoda')
-      p.innerHTML = 'Falha ao cadastrar! verifique os campos.'
-    } else {
-      axios
-        .post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
-        .then(res => console.log(res.data.data))
-        .catch(err => console.log(err.message))
-
-      getPatients()
-      setShow(false)
+    if (ValidateCpf(identifier) == false) {
       Swal.fire({
-        icon: 'success',
-        title: 'Paciente Adicionado com sucesso!',
+        icon: 'error',
+        title: 'Coloque um CPF válido!',
         position: 'top-right',
         showConfirmButton: false,
         timer: 2000,
         timerProgressBar: true
       })
+    } else {
+      if (name == '' || identifier == '' || birthdate == '' || phoneNumber == '' || image == undefined) {
+        let p: any = document.getElementById('paragrafoFoda')
+        p.innerHTML = 'Falha ao cadastrar! verifique os campos.'
+      } else {
+        axios
+          .post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
+          .then(res => console.log(res.data.data))
+          .catch(err => console.log(err.message))
+
+        getPatients()
+        setShow(false)
+        Swal.fire({
+          icon: 'success',
+          title: 'Paciente Adicionado com sucesso!',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true
+        })
+      }
     }
   }
 
@@ -89,10 +101,10 @@ export default function CadPaciente({ getPatients }: Props) {
             </Form.Group>
             <Form.Group className="mb-2" controlId="formGroupImage">
               <Form.Label>Foto do paciente</Form.Label>
-              <Form.Control onChange={e => setImage(e.target?.files[0])} type="file" />
+              <Form.Control onChange={e => setImage(e.target?.file[0])} type="file" />
             </Form.Group>
             <div className='buttons'>
-              <p style={{color: 'red', textAlign: 'left'}} id="paragrafoFoda"></p>
+              <p style={{ color: 'red', textAlign: 'left' }} id="paragrafoFoda"></p>
               <button type='submit' className='enviar'>Enviar</button>
             </div>
           </Form>

@@ -110,7 +110,7 @@ export default function Home() {
             </Table>
           </TableContainer>
         </div>
-        <Footer />
+        <Footer/>
       </main>
     </>
   )

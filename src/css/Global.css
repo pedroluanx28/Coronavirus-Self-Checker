@@ -45,6 +45,44 @@
   margin: 10px 0 30px 0 !important;
 }
 
+.footer {
+  width: 100%;
+  text-align: center;
+  background-color: #002142;
+  color: white;
+  font-weight: light;
+  font-size: 0.8em;
+  padding: 50px;
+  margin-top: 60px;
+  position: relative;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.moreForMe {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.myLinks {
+  margin: 0px 15px;
+  font-style: none;
+  font-size: 1.9em;
+  color: white;
+}
+
+.myName {
+  padding: 0;
+  font-size: 1.2em;
+  margin: 10px 20px;
+  text-align: center;
+  display: inline-block;
+}
+
 
 @keyframes slideIn {
     from {

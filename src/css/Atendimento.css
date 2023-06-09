@@ -19,6 +19,7 @@
     background-color: #014ba0;
     color: white;
     padding: 20px 40px 40px 40px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.500);
 }
 
 .infoPrimaria {
@@ -153,9 +154,16 @@
     margin: 5px;
     text-align: center;
     transition: 0.6s;
+    cursor: default;
 }.lastSymptoms:hover {
     color: white;
     background-color: rgb(29, 119, 255);
+}
+
+.returnButton {
+    width: 100%;
+    text-align: left;
+    font-size: 1.9em;
 }
 
 @media screen and (max-width: 600px) {
