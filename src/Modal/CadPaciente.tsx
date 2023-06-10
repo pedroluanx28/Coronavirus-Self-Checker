@@ -59,14 +59,7 @@ export default function CadPaciente({ getPatients }: Props) {
         console.log(res.data.data)
         getPatients()
         setShow(false)
-        Swal.fire({
-          icon: 'success',
-          title: 'Paciente Adicionado com sucesso!',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true
-        })
+        alert('Paciente adicionado com sucesso!')
       } catch (err: any) {
         let p: any = document.getElementById('alertParagraph')
         p.innerHTML = 'Falha ao cadastrar! Verifique suas informações!'

@@ -39,16 +39,9 @@ export default function Atendimento() {
         symptoms: symptoms
       })
       setItens(res.data.data.symptoms)
-      Swal.fire({
-        icon: 'success',
-        title: 'Atendimento realizado com sucesso!',
-        position: 'top-right',
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true
-      })
       getAttendances()
       navigate("/")
+      alert('Atendimento realizado com sucesso!')
     } catch (err: any) {
       console.log(err.message)
       const p: any = document.getElementById('alertParagraph')
