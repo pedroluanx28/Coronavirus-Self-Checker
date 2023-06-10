@@ -25,15 +25,20 @@ interface Item {
   id: number;
 }
 
+interface LinksProps {
+  next: string,
+  prev: string
+}
+
 
 
 export default function Home() {
   const [itens, setItens] = useState<any>([])
   const [pagination, setPagination] = useState<any>([])
-  const [links, setLinks] = useState<any>([])
+  const [links, setLinks] = useState<LinksProps | any>()
   let url = 'http://covid-checker.sintegrada.com.br/api/patients?page=1'
-  let currentPage = pagination['current_page']
-  const lastPage = pagination['last_page']
+  let currentPage: Number = pagination['current_page']
+  const lastPage: Number = pagination['last_page']
 
 
   const fetchData = async () => {

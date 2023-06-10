@@ -137,13 +137,13 @@ export default function Atendimento() {
       if (temperature <= 35) {
         return `${temperature}°C | Hipotermia`
       }
-      if (temperature >= 35.1 && temperature <= 37.2) {
+      if (temperature >= 35.19 && temperature <= 37.29) {
         return `${temperature}°C | Afebril`
       }
-      if (temperature >= 37.3 && temperature <= 37.7) {
+      if (temperature >= 37.39 && temperature <= 37.79) {
         return `${temperature}°C | Subfebril`
       }
-      if (temperature >= 37.8 && temperature <= 38.9) {
+      if (temperature >= 37.89 && temperature <= 38.99) {
         return `${temperature}°C | Febre`
       }
       if (temperature >= 39 && temperature <= 40) {
@@ -241,7 +241,7 @@ export default function Atendimento() {
               {
                 exemplo === undefined
                   ? <p>Sintomas anteriores indisponíveis!</p>
-                  : exemplo.symptoms.map((data: any) => {
+                  : exemplo.symptoms.map((data: {name: String}) => {
                     return (
                       <Col md='6'>
                         <p className='lastSymptoms'>

@@ -3,10 +3,17 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+type PropsArray = {
+  image: String,
+  name: String,
+  identifier: String,
+  birthdate: String
+}
+
 export default function DataPaciente() {
   const { id } = useParams();
-  const [paciente, setPaciente] = useState<any>();
-  const [lastConsulte, setLastConsulte] = useState<any[]>([]);
+  const [paciente, setPaciente] = useState<PropsArray>();
+  const [lastConsulte, setLastConsulte] = useState<String>('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +64,6 @@ export default function DataPaciente() {
         <img className='fotoDoPaciente' src={`http://covid-checker.sintegrada.com.br/storage/${paciente.image}`} alt="Foto do paciente" />
         <h5 className='nomeDoPaciente'>{paciente.name}</h5>
       </div>
-
       <div className='infoSecundaria'>
         <p className='condicaoPaciente'>{symptomsLength ? condition : "Não atendido"}</p>
         <p className='cpfDoPaciente'>{paciente.identifier}</p>
