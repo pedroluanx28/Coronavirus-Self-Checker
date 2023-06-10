@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import axios from 'axios'
 import { FormEvent, ChangeEvent } from 'react';
-import Swal from 'sweetalert2'
 
 
 type Props = {

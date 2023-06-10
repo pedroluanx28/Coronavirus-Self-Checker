@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { FormEvent } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import Footer from '../componentes/Footer';
-import Swal from 'sweetalert2';
 
 export default function Atendimento() {
   const [itens, setItens] = useState([])
@@ -40,7 +39,7 @@ export default function Atendimento() {
       })
       setItens(res.data.data.symptoms)
       getAttendances()
-      navigate("/")
+      navigate("/Coronavirus-Self-Checker")
       alert('Atendimento realizado com sucesso!')
     } catch (err: any) {
       console.log(err.message)
@@ -191,7 +190,7 @@ export default function Atendimento() {
       <DataPaciente />
       <div className='bodyPage'>
         <div className="returnButton">
-          <Link to="/">
+          <Link to="/Coronavirus-Self-Checker">
             <AiOutlineArrowLeft className="buttonHome" />
           </Link>
         </div>
