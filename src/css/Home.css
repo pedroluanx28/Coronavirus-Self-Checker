@@ -72,11 +72,10 @@
     padding: 10px 13px;
     box-shadow: 1px 1px 13px rgba(0, 0, 0, 0.300);
     transition: 0.6s;
-}
-
-.cadastrarPaciente:hover {
+}.cadastrarPaciente:hover {
     background-color: rgb(0, 97, 241);
     color: #fff;
+    transform: scale(1.2);
 }
 
 #tableTitle {

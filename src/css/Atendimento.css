@@ -166,6 +166,14 @@
     font-size: 1.9em;
 }
 
+.attendaceSubmitSpace {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
 @media screen and (max-width: 600px) {
     .formSintomas {
         width: 100%;

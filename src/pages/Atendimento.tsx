@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { FormEvent } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import Footer from '../componentes/Footer';
+import Swal from 'sweetalert2';
 
 export default function Atendimento() {
   const [itens, setItens] = useState([])
@@ -21,14 +22,14 @@ export default function Atendimento() {
   const [lastConsulte, setLastConsulte] = useState([])
   const { id } = useParams()
   let url = `http://covid-checker.sintegrada.com.br/api/patients/${id}/attendances`
-  const navigate = useNavigate()
   const exemplo: any = lastConsulte[lastConsulte.length - 1]
+  const navigate = useNavigate()
 
-  function postSymptoms(event: FormEvent) {
+  async function postSymptoms(event: FormEvent) {
     event.preventDefault()
 
-    axios
-      .post('http://covid-checker.sintegrada.com.br/api/attendance', {
+    try {
+      const res = await axios.post('http://covid-checker.sintegrada.com.br/api/attendance', {
         patient_id: Number(id),
         temperature: temp,
         systolic_pressure: systolic,
@@ -37,23 +38,32 @@ export default function Atendimento() {
         pulse: pulse,
         symptoms: symptoms
       })
-      .then(res => setItens(res.data.data.symptoms))
-      .catch(err => console.log(err.message))
-
-    getAttendances()
-    navigate(`/`)
+      setItens(res.data.data.symptoms)
+      Swal.fire({
+        icon: 'success',
+        title: 'Atendimento realizado com sucesso!',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true
+      })
+      getAttendances()
+      navigate("/")
+    } catch (err: any) {
+      console.log(err.message)
+      const p: any = document.getElementById('alertParagraph')
+      p.innerHTML = 'Falha ao atender paciente! Verifique se todos os campos estão preenchidos!'
+    }
   }
-  console.log(lastConsulte)
   function getAttendances() {
+    axios
+      .get(url)
+      .then(res => setLastConsulte(res.data.data))
+      .catch(err => console.log(err.message))
 
     axios
       .get(`http://covid-checker.sintegrada.com.br/api/attendance/200`)
       .then(res => setItens(res.data.data.symptoms))
-      .catch(err => console.log(err.message))
-
-    axios
-      .get(url)
-      .then(res => setLastConsulte(res.data.data))
       .catch(err => console.log(err.message))
   }
 
@@ -61,34 +71,61 @@ export default function Atendimento() {
     getAttendances()
   }, [])
 
+  function getSystolicDiagnostic() {
+    if (lastConsulte[lastConsulte.length - 1] == undefined) {
+      return ("Carregando dados...")
+    } else {
+      const systolic = lastConsulte[lastConsulte.length - 1]['systolic_pressure']
+
+      if (systolic < 90) {
+        return `${systolic} | Hipotenso`
+      }
+      else if (systolic >= 90 && systolic < 130) {
+        return `${systolic} | Normotenso`
+      }
+      else if (systolic >= 130 && systolic < 139) {
+        return `${systolic} | Normotenso Limítrofe`
+      }
+      else if (systolic >= 140 && systolic < 159) {
+        return `${systolic} | Hipertenso Leve`
+      }
+      else if (systolic >= 160 && systolic < 179) {
+        return `${systolic} | Hipertenso Moderado`
+      }
+      else if (systolic > 180) {
+        return `${systolic} | Hipertenso Grave`
+      }
+    }
+  }
+  const systolicDiagnostic = getSystolicDiagnostic()
+
   function getDiastolicDiagnostic() {
     if (lastConsulte[lastConsulte.length - 1] == undefined) {
       return ("Carregando dados...")
     } else {
       const diastolic = lastConsulte[lastConsulte.length - 1]['diastolic_pressure']
-      const systolic = lastConsulte[lastConsulte.length - 1]['systolic_pressure']
 
-      if (diastolic < 60 && systolic < 90) {
-        return `${systolic}x${diastolic} | Hipotenso`
+      if (diastolic < 60) {
+        return `${diastolic} | Hipotenso`
       }
-      if (diastolic >= 60 && diastolic < 85 && systolic >= 90 && systolic < 130) {
-        return `${systolic}x${diastolic} | Normotenso`
+      else if (diastolic >= 60 && diastolic < 85) {
+        return `${diastolic} | Normotenso`
       }
-      if (diastolic >= 85 && diastolic < 89 && systolic >= 130 && systolic < 139) {
-        return `${systolic}x${diastolic} | Normotenso Limítrofe`
+      else if (diastolic >= 85 && diastolic < 89) {
+        return `${diastolic} | Normotenso Limítrofe`
       }
-      if (diastolic >= 90 && diastolic < 99 && systolic >= 140 && systolic < 159) {
-        return `${systolic}x${diastolic} | Hipertenso Leve`
+      else if (diastolic >= 90 && diastolic < 99) {
+        return `${diastolic} | Hipertenso Leve`
       }
-      if (diastolic >= 100 && diastolic < 109 && systolic >= 160 && systolic < 179) {
-        return `${systolic}x${diastolic} | Hipertenso Moderado`
+      else if (diastolic >= 100 && diastolic < 109) {
+        return `${diastolic} | Hipertenso Moderado`
       }
-      if (diastolic > 110 && systolic > 180) {
-        return "Hipertenso Grave"
+      else if (diastolic > 110) {
+        return `${systolic}x${diastolic} | Hipertenso Grave`
       }
     }
   }
-  const pressureDiagnostic = getDiastolicDiagnostic()
+  const DiastolicDiagnostic = getDiastolicDiagnostic()
 
   function getRespiratoryDiagnostic() {
     if (lastConsulte[lastConsulte.length - 1] == undefined) {
@@ -162,7 +199,7 @@ export default function Atendimento() {
       <div className='bodyPage'>
         <div className="returnButton">
           <Link to="/">
-            <AiOutlineArrowLeft />
+            <AiOutlineArrowLeft className="buttonHome" />
           </Link>
         </div>
         <h1 className="atendimentoPaciente">Atendimento do paciente</h1>
@@ -175,26 +212,26 @@ export default function Atendimento() {
             <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control onChange={e => setSystolic(Number(e.target.value))} type="text" placeholder="Pressão Arterial Sistólica" required />
+                  <Form.Control onChange={e => setSystolic(Number(e.target.value))} type="text" placeholder="Pressão Arterial Sistólica" />
                 </Form.Group>
               </Col>
 
               <Col>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Control onChange={e => setDiastolic(Number(e.target.value))} type="text" placeholder="Pressão Arterial Diastólica" required />
+                  <Form.Control onChange={e => setDiastolic(Number(e.target.value))} type="text" placeholder="Pressão Arterial Diastólica" />
                 </Form.Group>
               </Col>
             </Row>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control onChange={e => setPulse(Number(e.target.value))} type="text" placeholder="Frequência Cardíaca" required />
+              <Form.Control onChange={e => setPulse(Number(e.target.value))} type="text" placeholder="Frequência Cardíaca" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control onChange={e => setRespiratory(Number(e.target.value))} type="text" placeholder="Frequência Respiratória" required />
+              <Form.Control onChange={e => setRespiratory(Number(e.target.value))} type="text" placeholder="Frequência Respiratória" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control onChange={e => setTemp(Number(e.target.value))} type="text" placeholder="Temperatura" required />
+              <Form.Control onChange={e => setTemp(Number(e.target.value))} type="text" placeholder="Temperatura" />
             </Form.Group>
           </div>
           <Container className="formSintomasCheck">
@@ -217,7 +254,7 @@ export default function Atendimento() {
                 }
 
                 return (
-                  <Col xs='3' sm='3' md='3' lg='3' style={{ textAlign: 'left' }}>
+                  <Col xs="6" sm='6' md='4' lg='3' style={{ textAlign: 'left' }}>
                     <Form.Check
                       className='checkboxInput'
                       type='checkbox'
@@ -232,7 +269,10 @@ export default function Atendimento() {
 
             </Row>
           </Container>
-          <button type='submit' className="enviar">Enviar</button>
+          <div className="attendaceSubmitSpace">
+            <p id="alertParagraph"></p>
+            <button type='submit' className="enviar">Enviar</button>
+          </div>
         </Form>
         <div className="lastConsulte">
           <h3 className='tituloFormSintomas'> Sintomas da última consulta </h3>
@@ -241,7 +281,7 @@ export default function Atendimento() {
               {
                 exemplo === undefined
                   ? <p>Sintomas anteriores indisponíveis!</p>
-                  : exemplo.symptoms.map((data: {name: String}) => {
+                  : exemplo.symptoms.map((data: { name: String }) => {
                     return (
                       <Col md='6'>
                         <p className='lastSymptoms'>
@@ -258,12 +298,24 @@ export default function Atendimento() {
                 : <>
                   <Col lg="6" sm="12">
                     <p className="lastDiagnostics">
-                      <h5>Pressão Arterial</h5>
+                      <h5>Pressão Arterial Sistólica</h5>
                       {!lastConsulte[lastConsulte.length - 1]
                         ? ("Carregando dados...")
                         : (
                           <p className='lastSymptoms'>
-                            {pressureDiagnostic}
+                            {systolicDiagnostic}
+                          </p>
+                        )}
+                    </p>
+                  </Col>
+                  <Col lg="6" sm="12">
+                    <p className="lastDiagnostics">
+                      <h5>Pressão Arterial Diastólica</h5>
+                      {!lastConsulte[lastConsulte.length - 1]
+                        ? ("Carregando dados...")
+                        : (
+                          <p className='lastSymptoms'>
+                            {DiastolicDiagnostic}
                           </p>
                         )}
                     </p>
@@ -292,7 +344,7 @@ export default function Atendimento() {
                         )}
                     </p>
                   </Col>
-                  <Col lg="6" sm="12">
+                  <Col lg="12" sm="12">
                     <p className="lastDiagnostics">
                       <h5>Temperatura</h5>
                       {!lastConsulte[lastConsulte.length - 1]

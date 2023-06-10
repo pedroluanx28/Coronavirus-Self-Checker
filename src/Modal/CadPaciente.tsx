@@ -68,7 +68,7 @@ export default function CadPaciente({ getPatients }: Props) {
           timerProgressBar: true
         })
       } catch (err: any) {
-        let p: any = document.getElementById('paragrafoFoda')
+        let p: any = document.getElementById('alertParagraph')
         p.innerHTML = 'Falha ao cadastrar! Verifique suas informações!'
         console.log('Ocoreu um erro inesperado: ' + err.message)
       }
@@ -107,18 +107,18 @@ return (
           </Form.Group>
           <Form.Group className="mb-2" controlId="formGroupBirthdate">
             <Form.Label>CPF</Form.Label>
-            <Form.Control placeholder="CPF" onChange={handleIdentifierChange} type="text" />
+            <Form.Control placeholder="CPF" onChange={handleIdentifierChange} type="text" value={identifier} />
           </Form.Group>
           <Form.Group className="mb-2" controlId="formGroupTelefone">
             <Form.Label>Telefone</Form.Label>
-            <Form.Control onChange={handlePhoneNumberChange} type="text" placeholder="Telefone" />
+            <Form.Control onChange={handlePhoneNumberChange} type="text" placeholder="Telefone" value={phoneNumber} />
           </Form.Group>
           <Form.Group className="mb-2" controlId="formGroupImage">
             <Form.Label>Foto do paciente</Form.Label>
             <Form.Control onChange={(e: ChangeEvent<any>) => setImage(e.target?.files[0])} type="file" />
           </Form.Group>
           <div className='buttons'>
-            <p style={{ color: 'red', textAlign: 'left' }} id="paragrafoFoda"></p>
+            <p id="alertParagraph"></p>
             <button type='submit' className='enviar'>Enviar</button>
           </div>
         </Form>
