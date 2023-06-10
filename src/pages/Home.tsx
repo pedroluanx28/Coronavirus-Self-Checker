@@ -104,7 +104,7 @@ export default function Home() {
                       <TableCell>{item['identifier']}</TableCell>
                       <TableCell>{dayjs().year() - dayjs(item['birthdate']).year() + ' anos'}</TableCell>
                       <TableCell style={{ textAlign: 'center' }}>
-                        <Link to={`/atendimento/${item['id']}`}>
+                        <Link to={`/Coronavirus-Self-Checker/atendimento/${item['id']}`}>
                           <button className='botaoHomeTable'> <ImArrowRight /> </button>
                         </Link>
                       </TableCell>

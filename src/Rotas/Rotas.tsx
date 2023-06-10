@@ -7,7 +7,7 @@ export default function Rotas() {
     <BrowserRouter>
         <Routes>
             <Route path='/Coronavirus-Self-Checker' element={<Home />}/>
-            <Route path='/atendimento/:id' element={<Atendimento />}/>
+            <Route path='/Coronavirus-Self-Checker/atendimento/:id' element={<Atendimento />}/>
         </Routes>
     </BrowserRouter>
   )
