@@ -18,11 +18,11 @@ import dayjs from 'dayjs'
 import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from 'react-icons/md'
 
 interface Item {
-  name: string;
-  phone_number: string;
-  identifier: string;
-  birthdate: string;
-  id: number;
+  paciente_nome: string;
+  paciente_telefone: string;
+  paciente_cpf: string;
+  paciente_dataN: string;
+  paciente_id: number;
 }
 
 interface LinksProps {
@@ -36,7 +36,7 @@ export default function Home() {
   const [itens, setItens] = useState<any>([])
   const [pagination, setPagination] = useState<any>([])
   const [links, setLinks] = useState<LinksProps | any>()
-  let url = 'http://covid-checker.sintegrada.com.br/api/patients?page=1'
+  let url = 'http://127.0.0.1:8000/api/getPacientes?page=1'
   let currentPage: Number = pagination['current_page']
   const lastPage: Number = pagination['last_page']
 
@@ -65,8 +65,6 @@ export default function Home() {
     url = links.prev
     fetchData()
   }
-
-
 
   return (
 
@@ -99,12 +97,12 @@ export default function Home() {
                 {itens.map((item: Item) => {
                   return (
                     <TableRow>
-                      <TableCell component="th" scope="row">{item['name']}</TableCell>
-                      <TableCell>{item['phone_number']}</TableCell>
-                      <TableCell>{item['identifier']}</TableCell>
-                      <TableCell>{dayjs().year() - dayjs(item['birthdate']).year() + ' anos'}</TableCell>
+                      <TableCell component="th" scope="row">{item['paciente_nome']}</TableCell>
+                      <TableCell>{item['paciente_telefone']}</TableCell>
+                      <TableCell>{item['paciente_cpf']}</TableCell>
+                      <TableCell>{dayjs().year() - dayjs(item['paciente_dataN']).year() + ' anos'}</TableCell>
                       <TableCell style={{ textAlign: 'center' }}>
-                        <Link to={`/Coronavirus-Self-Checker/atendimento/${item['id']}`}>
+                        <Link to={`/Coronavirus-Self-Checker/atendimento/${item['paciente_id']}`}>
                           <button className='botaoHomeTable'> <ImArrowRight /> </button>
                         </Link>
                       </TableCell>

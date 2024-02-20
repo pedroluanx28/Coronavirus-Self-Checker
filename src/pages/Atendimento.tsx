@@ -28,19 +28,19 @@ export default function Atendimento() {
     event.preventDefault()
 
     try {
-      const res = await axios.post('http://covid-checker.sintegrada.com.br/api/attendance', {
-        patient_id: Number(id),
-        temperature: temp,
-        systolic_pressure: systolic,
-        diastolic_pressure: diastolic,
-        respiratory_rate: respiratory,
-        pulse: pulse,
-        symptoms: symptoms
+      const res = await axios.post('http://127.0.0.1:8000/api/consultas/cadastrarConsulta', {
+        id_paciente: Number(id),
+        consulta_temperaturaPaciente: temp,
+        consulta_pressaoArterialSistolicaPaciente: systolic,
+        consulta_pressaoArterialDiastolicaPaciente: diastolic,
+        consulta_frequenciaRespiratoriaPaciente: respiratory,
+        consulta_frequenciaCardiacaPaciente: pulse,
+        ids_sintomas: symptoms
       })
-      setItens(res.data.data.symptoms)
       getAttendances()
       navigate("/Coronavirus-Self-Checker")
       alert('Atendimento realizado com sucesso!')
+      console.log(res)
     } catch (err: any) {
       console.log(err.message)
       const p: any = document.getElementById('alertParagraph')
@@ -54,8 +54,8 @@ export default function Atendimento() {
       .catch(err => console.log(err.message))
 
     axios
-      .get(`http://covid-checker.sintegrada.com.br/api/attendance/200`)
-      .then(res => setItens(res.data.data.symptoms))
+      .get(`http://localhost:8000/api/getSintomas`)
+      .then(res => setItens(res.data))
       .catch(err => console.log(err.message))
   }
 
@@ -183,7 +183,7 @@ export default function Atendimento() {
       }
     }
   }
-  const temperatureDiagnostic = getTemperatureDiagnostic()
+  const temperatureDiagnostic = getTemperatureDiagnostic();
 
   return (
     <>
@@ -230,20 +230,11 @@ export default function Atendimento() {
             <Row>
               <h3 className="tituloFormSintomasChecks">Sintomas</h3>
               {itens.map(data => {
-                const itemId = Number(data['id']);
-                const isChecked = symptoms.includes(itemId);
+                const itemId = Number(data['sintoma_id']);
 
-                const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-                  const isChecked = e.target.checked;
-
-                  setSymptoms(prevSelected => {
-                    if (isChecked) {
-                      return [...prevSelected, itemId];
-                    } else {
-                      return prevSelected.filter(id => id !== itemId);
-                    }
-                  });
-                }
+                const handleChangeCheck = (e: any) => e.currentTarget.checked 
+                ? setSymptoms([...symptoms, itemId])
+                : setSymptoms(symptoms.filter(id => id != itemId));
 
                 return (
                   <Col xs="6" sm='6' md='4' lg='3' style={{ textAlign: 'left' }}>
@@ -251,10 +242,9 @@ export default function Atendimento() {
                       className='checkboxInput'
                       type='checkbox'
                       value={itemId}
-                      checked={isChecked}
-                      onChange={handleCheckboxChange}
+                      onClick={handleChangeCheck}
                     />
-                    <p>{data['name']}</p>
+                    <p>{data['sintoma_nome']}</p>
                   </Col>
                 );
               })}

@@ -43,18 +43,18 @@ export default function CadPaciente({ getPatients }: Props) {
   };
 
   const requestData = new FormData()
-  requestData.append('name', name)
-  requestData.append('identifier', identifier)
-  requestData.append('birthdate', birthdate)
-  requestData.append('phone_number', phoneNumber)
-  requestData.append('image', image);
+  requestData.append('paciente_nome', name)
+  requestData.append('paciente_cpf', identifier)
+  requestData.append('paciente_dataN', birthdate)
+  requestData.append('paciente_telefone', phoneNumber)
+  requestData.append('paciente_foto', image);
 
   function postData(event: FormEvent) {
     event.preventDefault()
 
     async function addPatient() {
       try {
-        const res = await axios.post('http://covid-checker.sintegrada.com.br/api/patients', requestData)
+        const res = await axios.post('http://127.0.0.1:8000/api/pacientes/cadastrarPaciente', requestData)
         console.log(res.data.data)
         getPatients()
         setShow(false)

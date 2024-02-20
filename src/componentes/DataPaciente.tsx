@@ -4,22 +4,28 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 type PropsArray = {
-  image: String,
-  name: String,
-  identifier: String,
-  birthdate: String
+  foto: string,
+  paciente_nome: string,
+  paciente_cpf: string,
+  paciente_dataN: string,
+  consulta: {
+    result: {
+      resultado_nome: string;
+    }
+  }
 }
 
 export default function DataPaciente() {
   const { id } = useParams();
   const [paciente, setPaciente] = useState<PropsArray>();
-  const [lastConsulte, setLastConsulte] = useState<String>('');
+  const [lastConsulte, setLastConsulte] = useState<any>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://covid-checker.sintegrada.com.br/api/patients/${id}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/infoPaciente/${id}`);
         setPaciente(response.data.data);
+        setLastConsulte(response.data.data.consulta)
       } catch (error: any) {
         console.log(error.message);
       }
@@ -27,13 +33,6 @@ export default function DataPaciente() {
 
     fetchData();
   }, [id]);
-
-  useEffect(() => {
-    axios
-      .get(`http://covid-checker.sintegrada.com.br/api/patients/${id}/attendances`)
-      .then(res => setLastConsulte(res.data.data))
-      .catch(err => console.log(err.message))
-  }, []);
 
   if (!paciente) {
     return <div className='dataPacienteHeader'>Carregando dados do paciente...</div>;
@@ -61,13 +60,13 @@ export default function DataPaciente() {
   return (
     <div className="dataPacienteHeader">
       <div className="infoPrimaria">
-        <img className='fotoDoPaciente' src={`http://covid-checker.sintegrada.com.br/storage/${paciente.image}`} alt="Foto do paciente" />
-        <h5 className='nomeDoPaciente'>{paciente.name}</h5>
+        <img className='fotoDoPaciente' src={`https://f.i.uol.com.br/fotografia/2020/02/10/15813740235e41da475cca0_1581374023_3x2_md.jpg`} alt="Foto do paciente" />
+        <h5 className='nomeDoPaciente'>{paciente?.paciente_nome}</h5>
       </div>
       <div className='infoSecundaria'>
-        <p className='condicaoPaciente'>{symptomsLength ? condition : "Não atendido"}</p>
-        <p className='cpfDoPaciente'>{paciente.identifier}</p>
-        <p className='dataDeNascimento'>{paciente.birthdate}</p>
+        <p className='condicaoPaciente'>{symptomsLength?.result?.resultado_nome}</p>
+        <p className='cpfDoPaciente'>{paciente?.paciente_cpf}</p>
+        <p className='dataDeNascimento'>{paciente?.paciente_dataN}</p>
       </div>
     </div>
   );
